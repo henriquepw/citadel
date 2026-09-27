@@ -1,22 +1,35 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 modules:
   - type: dnf
+    repos:
+      nonfree: rpmfusion
     install:
+      allow-erasing: true
       packages:
         - steam
         - lutris
-        - protonplus
         - gamescope
         - mangohud
-        - sunshine
         - mesa-dri-drivers
         - mesa-vulkan-drivers
-        - mesa-va-drivers
+
+  - type: dnf
+    repos:
+      copr:
+        - lizardbyte/stable
+    install:
+      packages:
+        - Sunshine
+
+  - type: default-flatpaks
+    configurations:
+      - install:
+          - com.vysp3r.ProtonPlus
 
   - type: systemd
     user:
       enabled:
-        - sunshine.service
+        - app-dev.lizardbyte.app.Sunshine.service
 
   - type: script
     snippets:

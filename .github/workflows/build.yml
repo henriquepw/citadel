@@ -26,7 +26,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - recipe.yml
+          - recipe-mango.yml
+          - recipe-umbriel.yml
     steps:
       - name: Build Custom Image
         uses: blue-build/github-action@v1.13

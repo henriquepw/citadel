@@ -3,7 +3,6 @@ modules:
   - type: dnf
     install:
       packages:
-        - ghostty
         - zsh
         - make
         - ripgrep
@@ -17,7 +16,16 @@ modules:
         - chafa
         - libsixel
         - tmux
-        - starship
         - bat
         - btop
         - fzf
+
+  - type: dnf
+    repos:
+      copr:
+        - scottames/ghostty
+        - atim/starship
+    install:
+      packages:
+        - ghostty
+        - starship

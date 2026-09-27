@@ -1,6 +1,14 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 modules:
   - type: dnf
+    install:
+      packages:
+        - sddm
+        - sddm-wayland-generic
+        - xorg-x11-server-Xwayland
+        - xdg-desktop-portal-gtk
+
+  - type: dnf
     repos:
       files:
         - https://raw.githubusercontent.com/terrapkg/packages/f%OS_VERSION%/anda/terra/release/terra.repo
@@ -8,8 +16,6 @@ modules:
         - https://repos.fyralabs.com/terra%OS_VERSION%/key.asc
     install:
       packages:
-        - mangowm
-        - xorg-x11-server-Xwayland
         - google-noto-emoji-fonts
         - jetbrains-mono-fonts
         - papirus-icon-theme
@@ -19,20 +25,10 @@ modules:
   - type: dnf
     repos:
       copr:
-        - fnux/ly
         - alternateved/keyd
     install:
       packages:
-        # display manager (base-main não vem com nenhum)
-        - ly
-
-        # remapeamento de teclado (meta+c/v/x/a/z -> clipboard)
         - keyd
-
-        # portal xdg para telas wlroots (screen share do Sunshine, etc.)
-        - xdg-desktop-portal-wlr
-        - xdg-desktop-portal-gtk
-
         # IME wayland-native, para compose sequences (~/.XCompose) em apps ozone/wayland
         - fcitx5
         - fcitx5-configtool

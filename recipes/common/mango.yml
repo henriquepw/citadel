@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: dnf
+    install:
+      packages:
+        # screencast (Sunshine, etc.) pra compositores wlroots-like
+        - xdg-desktop-portal-wlr
+
+  - type: script
+    snippets:
+      # mangowm só tem rpm no Terra pra rawhide, então buildamos na hora.
+      # wlroots 0.19.2 e scenefx 0.4.1 são as versões que o mango fixa — o
+      # Fedora empacota wlroots 0.20, incompatível, por isso vão junto daqui.
+      - |
+        set -euo pipefail
+
+        # git/gcc/pkgconf ficam na imagem (vêm do develop.yml), o resto é
+        # só pro build e sai no fim
+        build_only=(
+          meson ninja-build gcc-c++ glslang
+          wayland-devel wayland-protocols-devel libinput-devel libxkbcommon-devel
+          pcre2-devel pixman-devel libdrm-devel libseat-devel systemd-devel
+          libxcb-devel xcb-util-wm-devel xcb-util-renderutil-devel xcb-util-errors-devel
+          mesa-libEGL-devel mesa-libgbm-devel libglvnd-devel
+          libdisplay-info-devel libliftoff-devel hwdata-devel vulkan-loader-devel
+        )
+        dnf5 -y install git gcc pkgconf-pkg-config "${build_only[@]}"
+
+        src="$(mktemp -d)"
+
+        git clone --depth 1 -b 0.19.2 https://gitlab.freedesktop.org/wlroots/wlroots.git "$src/wlroots"
+        meson setup "$src/wlroots/build" "$src/wlroots" --prefix=/usr --buildtype=release -Dexamples=disabled
+        ninja -C "$src/wlroots/build" install
+
+        git clone --depth 1 -b 0.4.1 https://github.com/wlrfx/scenefx.git "$src/scenefx"
+        meson setup "$src/scenefx/build" "$src/scenefx" --prefix=/usr --buildtype=release -Dexamples=disabled
+        ninja -C "$src/scenefx/build" install
+
+        git clone --depth 1 https://github.com/mangowm/mango.git "$src/mango"
+        meson setup "$src/mango/build" "$src/mango" --prefix=/usr --buildtype=release
+        ninja -C "$src/mango/build" install
+
+        ldconfig
+        rm -rf "$src"
+        dnf5 -y remove "${build_only[@]}"

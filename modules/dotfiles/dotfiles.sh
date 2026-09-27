@@ -1,30 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Roda em build-time, quando /home ainda é um symlink pendurado pra /var/home
+# (só existe de verdade no primeiro boot do ostree) — não dá pra symlinkar
+# direto pra dentro de $HOME aqui. Em vez disso, copiamos o conteúdo pra um
+# lugar permanente da imagem (/usr/share) e o link-dotfiles.sh (rodado por
+# um systemd --user unit no login) cria os symlinks reais em $HOME.
+
 MODULE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-USER_HOME="${USER_HOME:-/home/henrique}"
+DEST="/usr/share/citadel-dotfiles"
 
-link_dotfiles_dir() {
-	local src_dir="$1"
+rm -rf "$DEST"
+mkdir -p "$DEST"
 
-	[[ -d "$src_dir" ]] || return 0
+[[ -d "$MODULE_DIR/.config" ]] && cp -r "$MODULE_DIR/.config" "$DEST/"
+[[ -d "$MODULE_DIR/.local" ]] && cp -r "$MODULE_DIR/.local" "$DEST/"
+[[ -f "$MODULE_DIR/.XCompose" ]] && cp "$MODULE_DIR/.XCompose" "$DEST/"
 
-	shopt -s dotglob nullglob
-	for entry in "$src_dir"/*; do
-		local dest="$USER_HOME/${entry#"$MODULE_DIR"/}"
-
-		mkdir -p "$(dirname "$dest")"
-		rm -rf "$dest"
-		ln -s "$entry" "$dest"
-	done
-	shopt -u dotglob nullglob
-}
-
-link_dotfiles_dir "$MODULE_DIR/.config"
-link_dotfiles_dir "$MODULE_DIR/.local"
-
-# dotfiles que precisam ficar direto em $HOME (não sob .config/.local)
-if [[ -f "$MODULE_DIR/.XCompose" ]]; then
-	rm -rf "$USER_HOME/.XCompose"
-	ln -s "$MODULE_DIR/.XCompose" "$USER_HOME/.XCompose"
-fi
+install -Dm755 "$MODULE_DIR/link-dotfiles.sh" /usr/libexec/citadel-dotfiles-link

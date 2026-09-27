@@ -8,15 +8,17 @@ modules:
   - type: systemd
     system:
       enabled:
-        - ly.service
         - keyd.service
+        - sddm.service
     user:
       enabled:
         - syncthing.service
+        - dotfiles-link.service
 
   - type: script
     snippets:
-      # base-main não tem DE nenhum, então o boot-target default é multi-user; sem isso o ly nunca sobe
+      # base-main não tem DE nenhum, então o boot-target default é multi-user;
+      # o %post do sddm normalmente já resolve isso sozinho, mas deixamos explícito
       - systemctl set-default graphical.target
 
       # timezone (base-main não define nenhuma)

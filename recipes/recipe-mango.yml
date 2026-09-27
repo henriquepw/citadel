@@ -1,9 +1,8 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: hos
-# description will be included in the image's metadata
-description: This is my personal OS image.
+name: citadel-mango
+description: This is my personal OS image (mangowm).
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/base-main
@@ -25,6 +24,7 @@ modules:
   - from-file: common/chat.yml
   - from-file: common/develop.yml
   - from-file: common/desktop.yml
+  - from-file: common/mango.yml
   - from-file: common/gaming.yml
   - from-file: common/terminal.yml
   - from-file: common/services.yml
