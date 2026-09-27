@@ -9,5 +9,34 @@ modules:
     install:
       packages:
         - umbriel-nightly
-        - xdg-desktop-portal-umbriel-nightly
         - xwayland-satellite
+
+  - type: script
+    snippets:
+      # o portal de screencast/screenshot do umbriel só tem rpm no Terra pra
+      # rawhide (xdg-desktop-portal-umbriel-nightly não existe no f%OS_VERSION%),
+      # então buildamos na hora.
+      - |
+        set -euo pipefail
+
+        # git/gcc/pkgconf ficam na imagem (vêm do develop.yml), o resto é
+        # só pro build e sai no fim
+        build_only=(
+          meson ninja-build gcc-c++
+          wayland-devel wayland-protocols-devel
+          libdrm-devel mesa-libgbm-devel
+          cairo-devel tomlplusplus-devel json-devel sdbus-cpp-devel
+          pipewire-devel gtk4-devel
+        )
+        dnf5 -y install git gcc pkgconf-pkg-config "${build_only[@]}"
+
+        src="$(mktemp -d)"
+
+        git clone --depth 1 https://github.com/noctalia-dev/xdg-desktop-portal-umbriel.git "$src/xdp-umbriel"
+        meson setup "$src/xdp-umbriel/build" "$src/xdp-umbriel" --prefix=/usr --buildtype=release
+        meson compile -C "$src/xdp-umbriel/build"
+        meson install -C "$src/xdp-umbriel/build"
+
+        ldconfig
+        rm -rf "$src"
+        dnf5 -y remove "${build_only[@]}"

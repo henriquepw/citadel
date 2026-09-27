@@ -19,6 +19,8 @@ modules:
   - from-file: common/cleanup.yml
   - from-file: common/kernel.yml
 
+  - from-file: common/terra.yml
+
   - from-file: common/base.yml
   - from-file: common/browser.yml
   - from-file: common/chat.yml
