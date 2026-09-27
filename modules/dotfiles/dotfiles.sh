@@ -22,3 +22,9 @@ link_dotfiles_dir() {
 
 link_dotfiles_dir "$MODULE_DIR/.config"
 link_dotfiles_dir "$MODULE_DIR/.local"
+
+# dotfiles que precisam ficar direto em $HOME (não sob .config/.local)
+if [[ -f "$MODULE_DIR/.XCompose" ]]; then
+	rm -rf "$USER_HOME/.XCompose"
+	ln -s "$MODULE_DIR/.XCompose" "$USER_HOME/.XCompose"
+fi

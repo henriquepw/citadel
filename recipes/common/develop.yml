@@ -27,7 +27,22 @@ modules:
 
   - type: script
     snippets:
-      - npm install -g @anthropic-ai/claude-code @openai/codex opencode-ai bun
+      - npm install -g bun @anthropic-ai/claude-code @openai/codex
 
   - type: lsp
     source: local
+
+  - type: systemd
+    system:
+      enabled:
+        - sshd.service
+
+  - type: script
+    snippets:
+      - firewall-offline-cmd --add-service=ssh
+
+  - type: default-flatpaks
+    configurations:
+      - install:
+          - com.google.AndroidStudio
+

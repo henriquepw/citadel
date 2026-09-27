@@ -14,4 +14,27 @@ modules:
         - jetbrains-mono-fonts
         - papirus-icon-theme
         - breeze-cursor-theme
-        - noctalia-shell
+        - noctalia
+
+  - type: dnf
+    repos:
+      copr:
+        - fnux/ly
+        - alternateved/keyd
+    install:
+      packages:
+        # display manager (base-main não vem com nenhum)
+        - ly
+
+        # remapeamento de teclado (meta+c/v/x/a/z -> clipboard)
+        - keyd
+
+        # portal xdg para telas wlroots (screen share do Sunshine, etc.)
+        - xdg-desktop-portal-wlr
+        - xdg-desktop-portal-gtk
+
+        # IME wayland-native, para compose sequences (~/.XCompose) em apps ozone/wayland
+        - fcitx5
+        - fcitx5-configtool
+        - fcitx5-gtk
+        - fcitx5-qt
