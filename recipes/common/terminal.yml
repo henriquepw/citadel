@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: dnf
+    install:
+      packages:
+        - ghostty
+        - zsh
+        - make
+        - ripgrep
+        - fd-find
+        - jq
+        - fastfetch
+        - git-delta
+        - tree
+        - unzip
+        - zoxide
+        - chafa
+        - libsixel
+        - tmux
+        - starship
+        - bat
+        - btop
+        - fzf

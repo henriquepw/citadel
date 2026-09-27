@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: dnf
+    install:
+      packages:
+        - syncthing
+        - tailscale
+        - nautilus
+
+  - type: default-flatpaks
+    configurations:
+      - install:
+          - com.bambulab.BambuStudio
+          - org.freecad.FreeCAD
