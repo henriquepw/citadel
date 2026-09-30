@@ -1,0 +1,87 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: dnf
+    repos:
+      copr:
+        - arcticlore/candy
+        - scottames/ghostty
+        - atim/starship
+    install:
+      packages:
+        # terminal
+        - ghostty
+        - zsh
+        - tmux
+        - starship
+
+        # utils
+        - make
+        - stow
+        - ripgrep
+        - fd-find
+        - jq
+        - tree
+        - unzip
+        - zoxide
+        - bat
+        - btop
+        - fzf
+        - watchexec
+        - fastfetch
+
+        # graphics
+        - chafa
+        - libsixel
+
+        # git
+        - git
+        - gh
+        - lazygit
+        - git-delta
+
+        # editor
+        - neovim
+        - vis
+        - tree-sitter
+
+        # langs
+        - nodejs
+        - golang
+        - rust
+        - cargo
+        - zig
+        - gcc
+        - python3
+        - lua
+
+        # tooling
+        - shellcheck
+        - shfmt
+        - rust-analyzer
+        - clang-tools-extra
+        - android-tools
+
+
+  - type: default-flatpaks
+    configurations:
+      - install:
+          - com.google.AndroidStudio
+
+  - type: script
+    snippets:
+      - npm install -g bun @anthropic-ai/claude-code @openai/codex
+
+  - type: lsp
+    source: local
+
+  - type: systemd
+    system:
+      enabled:
+        - sshd.service
+
+  - type: script
+    snippets:
+      - firewall-offline-cmd --add-service=ssh
+
+
+

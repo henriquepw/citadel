@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: dnf
+    install:
+      packages:
+        - wlroots
+        - scenefx
+        - xdg-desktop-portal-wlr
+
+  - type: script
+    snippets:
+      # mangowm só tem rpm no Terra pra rawhide, então buildamos na hora
+      - |
+        set -euo pipefail
+
+        # git/gcc/pkgconf ficam na imagem (vêm do develop.yml), o resto é
+        # só pro build e sai no fim
+        build_only=(
+          meson ninja-build
+          wlroots-devel scenefx-devel
+          wayland-protocols-devel libinput-devel libxkbcommon-devel
+          pcre2-devel pixman-devel libdrm-devel
+          libxcb-devel xcb-util-wm-devel
+          cjson-devel pango-devel cairo-devel
+        )
+        dnf5 -y install git gcc pkgconf-pkg-config "${build_only[@]}"
+
+        src="$(mktemp -d)"
+
+        git clone --depth 1 https://github.com/mangowm/mango.git "$src/mango"
+        meson setup "$src/mango/build" "$src/mango" --prefix=/usr --buildtype=release
+        ninja -C "$src/mango/build" install
+
+        ldconfig
+        rm -rf "$src"
+        dnf5 -y remove "${build_only[@]}"
