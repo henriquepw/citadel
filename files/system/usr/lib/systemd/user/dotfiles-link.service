@@ -1,9 +1,0 @@
-[Unit]
-Description=Link dotfiles da imagem citadel para $HOME
-
-[Service]
-Type=oneshot
-ExecStart=/usr/libexec/citadel-dotfiles-link
-
-[Install]
-WantedBy=default.target

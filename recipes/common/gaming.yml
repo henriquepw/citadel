@@ -10,6 +10,7 @@ modules:
         - lutris
         - gamescope
         - mangohud
+        - gamemode
         - mesa-dri-drivers
         - mesa-vulkan-drivers
 

@@ -1,15 +1,92 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 modules:
+  - type: akmods
+    base: ogc
+    install:
+      - v4l2loopback
+      - xone
+      - xpadneo
+
+  - type: dnf
+    repos:
+      files:
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+        - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+      copr:
+        - alternateved/keyd
+        - fovty/hushmic
+      keys:
+        - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    install:
+      packages:
+        # display
+        - sddm
+        - sddm-wayland-generic
+        - xorg-x11-server-Xwayland
+        - xdg-desktop-portal-gtk
+
+        # desktop
+        - noctalia
+
+        # themes
+        - papirus-icon-theme
+        - bibata-cursor-theme
+
+        # input
+        - keyd
+        - fcitx5
+        - fcitx5-configtool
+        - fcitx5-gtk
+        - fcitx5-qt
+
+        # audio
+        - hushmic
+
+        # browsers
+        - brave-origin
+
+        # network
+        - firewalld
+
   - type: dnf
     install:
       install-weak-deps: false
       packages:
+        # apps
         - syncthing
         - tailscale
         - nautilus
+
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        - JetBrainsMono
+      google-fonts:
+        - Inter
 
   - type: default-flatpaks
     configurations:
       - install:
           - com.bambulab.BambuStudio
           - org.freecad.FreeCAD
+          - io.gitlab.librewolf-community
+
+  - type: systemd
+    system:
+      enabled:
+        - keyd.service
+        - sddm.service
+    user:
+      enabled:
+        - syncthing.service
+
+  - type: script
+    snippets:
+      # timezone
+      - systemd-firstboot --force --timezone=America/Sao_Paulo
+
+      # firewall: syncthing
+      - firewall-offline-cmd --add-port=22000/tcp
+      - firewall-offline-cmd --add-port=22000/udp
+      - firewall-offline-cmd --add-port=21027/udp
+      - firewall-offline-cmd --add-port=8384/tcp

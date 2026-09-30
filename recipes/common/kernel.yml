@@ -9,6 +9,8 @@ modules:
   - type: script
     snippets:
       - |
+        set -euo pipefail
+
         pushd /usr/lib/kernel/install.d
         mv 05-rpmostree.install 05-rpmostree.install.bak
         mv 50-dracut.install 50-dracut.install.bak
@@ -34,5 +36,12 @@ modules:
         mv -f 05-rpmostree.install.bak 05-rpmostree.install
         mv -f 50-dracut.install.bak 50-dracut.install
         popd
+
+        # os hooks do dracut ficaram desativados na instalação, então o
+        # initramfs precisa ser gerado na mão (sem ele o boot dá kernel panic)
+        kver="$(rpm -q kernel-core --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}')"
+        depmod -a "$kver"
+        DRACUT_NO_XATTR=1 dracut --no-hostonly --kver "$kver" --reproducible --add ostree -f "/usr/lib/modules/$kver/initramfs.img"
+        chmod 0600 "/usr/lib/modules/$kver/initramfs.img"
 
         rm -rf /tmp/kernel-rpms
