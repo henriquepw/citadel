@@ -20,8 +20,7 @@ modules:
     install:
       packages:
         # display
-        - sddm
-        - sddm-wayland-generic
+        - ly
         - xorg-x11-server-Xwayland
         - xdg-desktop-portal-gtk
 
@@ -38,6 +37,7 @@ modules:
         - fcitx5-configtool
         - fcitx5-gtk
         - fcitx5-qt
+        - wl-clipboard
 
         # audio
         - hushmic
@@ -54,7 +54,6 @@ modules:
       packages:
         # apps
         - syncthing
-        - tailscale
         - nautilus
 
   - type: fonts
@@ -75,7 +74,7 @@ modules:
     system:
       enabled:
         - keyd.service
-        - sddm.service
+        - ly@tty2.service
     user:
       enabled:
         - syncthing.service

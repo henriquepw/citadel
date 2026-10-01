@@ -24,17 +24,13 @@ modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: /
 
-  # - from-file: common/cleanup.yml
+  - from-file: common/cleanup.yml
   - from-file: common/kernel.yml
-
   - from-file: common/base.yml
   - from-file: common/develop.yml
   - from-file: common/gaming.yml
   - from-file: common/mango.yml
 
-  - type: lsp
-    source: local
-
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+  - type: signing

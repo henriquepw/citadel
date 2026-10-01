@@ -1,0 +1,10 @@
+## sobrescreve o particionamento automático do perfil fedora-server (LVM com / limitado a 15 GiB)
+## por btrfs ocupando o disco inteiro, mantendo a tela de criação de usuário do VARIANT=server
+append etc/anaconda/conf.d/99-citadel-storage.conf "[Storage]"
+append etc/anaconda/conf.d/99-citadel-storage.conf "default_scheme = BTRFS"
+append etc/anaconda/conf.d/99-citadel-storage.conf "btrfs_compression = zstd:1"
+append etc/anaconda/conf.d/99-citadel-storage.conf "file_system_type = btrfs"
+append etc/anaconda/conf.d/99-citadel-storage.conf "default_partitioning ="
+append etc/anaconda/conf.d/99-citadel-storage.conf "    /     (min 1 GiB, max 70 GiB)"
+append etc/anaconda/conf.d/99-citadel-storage.conf "    /home (min 500 MiB, free 50 GiB)"
+append etc/anaconda/conf.d/99-citadel-storage.conf "    /var  (btrfs)"

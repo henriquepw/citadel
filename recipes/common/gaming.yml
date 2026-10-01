@@ -5,8 +5,12 @@ modules:
       nonfree: rpmfusion
     install:
       allow-erasing: true
+      # sem weak deps o lutris não puxa wine + mingw (~2,3 GB); o steam usa proton
+      # e o lutris baixa os próprios runners
+      install-weak-deps: false
       packages:
         - steam
+        - steam-devices
         - lutris
         - gamescope
         - mangohud
