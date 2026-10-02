@@ -32,5 +32,6 @@ modules:
   - from-file: common/develop.yml
   - from-file: common/gaming.yml
   - from-file: common/mango.yml
+  - from-file: common/dotfiles.yml
 
   - type: signing
