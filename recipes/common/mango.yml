@@ -16,13 +16,20 @@ modules:
     snippets:
       - |
         set -euo pipefail
+
+        # Start the desktop shell with Mango; without it the compositor shows
+        # only its empty background.
+        if [ -f /etc/mango/config.conf ] && ! grep -qxF 'exec-once=noctalia --daemon' /etc/mango/config.conf; then
+          printf '\nexec-once=noctalia --daemon\n' >> /etc/mango/config.conf
+        fi
+
         if [ ! -f /usr/share/wayland-sessions/mango.desktop ]; then
           mkdir -p /usr/share/wayland-sessions
           cat > /usr/share/wayland-sessions/mango.desktop <<'DESKTOP'
         [Desktop Entry]
         Name=Mango
         Comment=A wayland compositor based on wlroots and scenefx
-        Exec=mango
+        Exec=/usr/bin/mango
         Type=Application
         DesktopNames=mango;wlroots
         DESKTOP

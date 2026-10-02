@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
+sudo rm -rf "$PWD"/.bb-tmp/*
+
+# sudo bluebuild build \
+#   --build-chunked-oci \
+# 	--archive "$PWD/.bb-tmp" \
+# 	recipes/recipe.yml \
+# 	-v
+
 sudo bluebuild build \
-	--build-driver podman \
-	--build-chunked-oci \
 	--archive "$PWD/.bb-tmp" \
 	recipes/recipe.yml \
 	-v

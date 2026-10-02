@@ -5,10 +5,8 @@ ConditionPathExists=/home/linuxbrew/.linuxbrew/bin/brew
 [Service]
 Type=oneshot
 Environment=HOMEBREW_NO_ANALYTICS=1
-# só roda quando falta algum pacote do Brewfile
 ExecCondition=/bin/sh -c '! /home/linuxbrew/.linuxbrew/bin/brew bundle check --file=/usr/share/citadel/Brewfile'
 ExecStart=/home/linuxbrew/.linuxbrew/bin/brew bundle --file=/usr/share/citadel/Brewfile
-# sem rede logo após o login, tenta de novo
 Restart=on-failure
 RestartSec=2min
 
