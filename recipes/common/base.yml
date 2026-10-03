@@ -69,7 +69,12 @@ modules:
           - com.bambulab.BambuStudio
           - org.freecad.FreeCAD
           - io.gitlab.librewolf-community
-          - moe.sable.client
+      - repo:
+          name: sable-nightly
+          title: Sable Nightly
+          url: https://sableclient.github.io/Sable/sable-nightly.flatpakrepo
+        install:
+          - moe.sable.client.Nightly
 
   - type: systemd
     system:
@@ -82,8 +87,10 @@ modules:
 
   - type: script
     snippets:
-      # timezone
-      - systemd-firstboot --force --timezone=America/Sao_Paulo
+      # zapfast: rpm from the latest github release
+      - >-
+        dnf install -y $(curl -fsSL https://api.github.com/repos/crmne/zapfast/releases/latest
+        | grep -oP '"browser_download_url":\s*"\K[^"]+\.x86_64\.rpm')
 
       # firewall: syncthing
       - firewall-offline-cmd --add-port=22000/tcp
