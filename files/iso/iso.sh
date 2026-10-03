@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 set -e
 
-sudo rm -rf "$PWD"/.bb-tmp/*
+TMP="$PWD/.bb-tmp"
 
-# sudo bluebuild build \
-#   --build-chunked-oci \
-# 	--archive "$PWD/.bb-tmp" \
-# 	recipes/recipe.yml \
-# 	-v
+sudo mkdir -p "$TMP"
+sudo rm -f "$TMP"/citadel.gz
 
 sudo bluebuild build \
-	--archive "$PWD/.bb-tmp" \
+	--build-chunked-oci \
 	recipes/recipe.yml \
 	-v
+
+sudo podman save --format oci-archive \
+	-o "$TMP/citadel.gz" \
+	localhost/citadel:latest_linux_amd64
 
 sudo podman run --rm --privileged \
 	-v "$PWD":/build-container-installer/build \
 	-v dnf-cache:/cache/dnf \
-	-v "$PWD/.bb-tmp":/img_src \
+	-v "$TMP":/img_src \
 	ghcr.io/jasonn3/build-container-installer:v1.4.0 \
 	VARIANT=server \
 	ISO_NAME=build/citadel.iso \
@@ -31,3 +32,5 @@ sudo podman run --rm --privileged \
 	ADDITIONAL_TEMPLATES=/build-container-installer/build/files/iso/anaconda-storage.tmpl \
 	IMAGE_SRC=oci-archive:/img_src/citadel.gz \
 	VERSION=44
+
+sudo podman rmi localhost/citadel:latest_linux_amd64

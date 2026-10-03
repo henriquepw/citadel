@@ -1,2 +1,2 @@
-# mermaid-cli (puppeteer) usa o brave do sistema em vez de baixar um chromium
+# mermaid-cli (puppeteer) uses system brave instead of downloading chromium
 export PUPPETEER_EXECUTABLE_PATH=/usr/bin/brave-origin

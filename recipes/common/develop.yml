@@ -80,5 +80,8 @@ modules:
     snippets:
       - firewall-offline-cmd --add-service=ssh
 
+      # zsh as the default shell for new users
+      - sed -i 's|^SHELL=.*|SHELL=/usr/bin/zsh|' /etc/default/useradd
+
 
 

@@ -14,24 +14,18 @@ modules:
       PRETTY_NAME: Citadel
       DEFAULT_HOSTNAME: citadel
 
-  - type: kargs
-    kargs:
-      - quiet
-      - loglevel=3
-      - rd.udev.log_level=3
-      - udev.log_priority=3
-
   - type: files
     files:
       - source: system
         destination: /
 
   - from-file: common/cleanup.yml
-  - from-file: common/kernel.yml
   - from-file: common/base.yml
   - from-file: common/develop.yml
   - from-file: common/gaming.yml
   - from-file: common/mango.yml
   - from-file: common/dotfiles.yml
+
+  - from-file: common/kernel.yml
 
   - type: signing
