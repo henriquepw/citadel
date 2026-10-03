@@ -1,8 +1,11 @@
 #!/usr/bin/bash
 
 # Ly session wrapper: load the login env and exec the given session (e.g. /usr/bin/mango)
+# /etc/bashrc (sourced by /etc/profile) forces SHELL=/bin/bash in non-login bash
+login_shell="$SHELL"
 [ -f /etc/profile ] && . /etc/profile
 [ -f "$HOME/.profile" ] && . "$HOME/.profile"
+export SHELL="$login_shell"
 
 export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-wayland}"
 export XCURSOR_THEME="${XCURSOR_THEME:-Bibata-Modern-Ice}"
