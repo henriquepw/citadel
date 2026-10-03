@@ -1,12 +1,5 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 modules:
-  - type: akmods
-    base: ogc
-    install:
-      - v4l2loopback
-      - xone
-      - xpadneo
-
   - type: dnf
     repos:
       files:
@@ -48,11 +41,11 @@ modules:
         # network
         - firewalld
 
+  # apps
   - type: dnf
     install:
       install-weak-deps: false
       packages:
-        # apps
         - syncthing
         - nautilus
 
@@ -60,8 +53,11 @@ modules:
     fonts:
       nerd-fonts:
         - JetBrainsMono
-      google-fonts:
-        - Inter
+
+  # GTK font settings (used via xdg-desktop-portal)
+  - type: gschema-overrides
+    include:
+      - zz1-citadel-fonts.gschema.override
 
   - type: default-flatpaks
     configurations:

@@ -1,5 +1,5 @@
-# toolchains e ferramentas de dev que ficam fora da imagem
-# aplicado no login pelo citadel-brew-bundle.service (user); manual: brew bundle --file=/usr/share/citadel/Brewfile
+# dev toolchains kept out of the image
+# applied at login by citadel-brew-bundle.service (user); manual: brew bundle --file=/usr/share/citadel/Brewfile
 
 # go
 brew "go"

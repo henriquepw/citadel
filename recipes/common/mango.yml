@@ -11,14 +11,13 @@ modules:
         - xdg-desktop-portal-wlr
         - mango
 
-  # garante que o display manager enxergue a sessão, caso o pacote não instale o .desktop
+  # ensure the display manager sees the session if the package lacks a .desktop
   - type: script
     snippets:
       - |
         set -euo pipefail
 
-        # Start the desktop shell with Mango; without it the compositor shows
-        # only its empty background.
+        # start the desktop shell with Mango, else only the empty background shows
         if [ -f /etc/mango/config.conf ] && ! grep -qxF 'exec-once=noctalia --daemon' /etc/mango/config.conf; then
           printf '\nexec-once=noctalia --daemon\n' >> /etc/mango/config.conf
         fi

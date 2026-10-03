@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
-# Wrapper de sessão do Ly: carrega o ambiente de login e executa a sessão
-# recebida como argumento (ex.: /usr/bin/mango).
+# Ly session wrapper: load the login env and exec the given session (e.g. /usr/bin/mango)
 [ -f /etc/profile ] && . /etc/profile
 [ -f "$HOME/.profile" ] && . "$HOME/.profile"
 

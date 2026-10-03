@@ -1,23 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-sudo rm -rf "$PWD"/.bb-tmp/*
+IMAGE=localhost/citadel:latest_linux_amd64
 
-# sudo bluebuild build \
-#   --build-chunked-oci \
-# 	--archive "$PWD/.bb-tmp" \
-# 	recipes/recipe.yml \
-# 	-v
-
-sudo bluebuild build \
-	--archive "$PWD/.bb-tmp" \
+# No chunking: the installed system rebases to the CI-built image anyway
+time sudo bluebuild build \
 	recipes/recipe.yml \
 	-v
 
-sudo podman run --rm --privileged \
+# Read the image straight from host storage instead of exporting a tarball
+time sudo podman run --rm --privileged \
 	-v "$PWD":/build-container-installer/build \
 	-v dnf-cache:/cache/dnf \
-	-v "$PWD/.bb-tmp":/img_src \
+	-v /var/lib/containers/storage:/var/lib/containers/storage \
 	ghcr.io/jasonn3/build-container-installer:v1.4.0 \
 	VARIANT=server \
 	ISO_NAME=build/citadel.iso \
@@ -29,5 +24,5 @@ sudo podman run --rm --privileged \
 	ENROLLMENT_PASSWORD=universalblue \
 	WEB_UI=false \
 	ADDITIONAL_TEMPLATES=/build-container-installer/build/files/iso/anaconda-storage.tmpl \
-	IMAGE_SRC=oci-archive:/img_src/citadel.gz \
+	IMAGE_SRC=containers-storage:$IMAGE \
 	VERSION=44
