@@ -29,7 +29,11 @@ dnf5 -y install /tmp/akmods-rpms/ublue-os/ublue-os-akmods-addons-*.rpm
 if ! rpm -q rpmfusion-free-release &>/dev/null; then
   dnf5 -y install "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 fi
+# Local common rpms match the kmods; repo ones pull akmod-*, which can't build here
 dnf5 -y install --enablerepo='copr:copr.fedorainfracloud.org:ublue-os:akmods' \
+  /tmp/akmods-rpms/common/v4l2loopback-*.rpm \
+  /tmp/akmods-rpms/common/xone-kmod-common-*.rpm \
+  /tmp/akmods-rpms/common/xpadneo-kmod-common-*.rpm \
   /tmp/akmods-rpms/kmods/kmod-v4l2loopback-*.rpm \
   /tmp/akmods-rpms/kmods/kmod-xone-*.rpm \
   /tmp/akmods-rpms/kmods/kmod-xpadneo-*.rpm
