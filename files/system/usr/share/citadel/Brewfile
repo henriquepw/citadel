@@ -1,0 +1,35 @@
+# toolchains e ferramentas de dev que ficam fora da imagem
+# aplicado no login pelo citadel-brew-bundle.service (user); manual: brew bundle --file=/usr/share/citadel/Brewfile
+
+# go
+brew "go"
+brew "gopls"
+brew "gofumpt"
+brew "revive"
+
+# rust
+brew "rust"
+brew "rust-analyzer"
+
+# zig
+brew "zig"
+
+# c/c++ (clangd, clang-format)
+brew "llvm"
+
+# lua / toml
+brew "stylua"
+brew "taplo"
+
+# lsp / formatters
+brew "goimports"
+brew "bash-language-server"
+brew "vtsls"
+brew "tailwindcss-language-server"
+brew "biome"
+brew "mermaid-cli"
+
+# ai / js
+cask "claude-code"
+cask "codex"
+brew "bun"

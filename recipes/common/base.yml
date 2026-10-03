@@ -20,8 +20,7 @@ modules:
     install:
       packages:
         # display
-        - sddm
-        - sddm-wayland-generic
+        - ly
         - xorg-x11-server-Xwayland
         - xdg-desktop-portal-gtk
 
@@ -38,6 +37,7 @@ modules:
         - fcitx5-configtool
         - fcitx5-gtk
         - fcitx5-qt
+        - wl-clipboard
 
         # audio
         - hushmic
@@ -54,7 +54,6 @@ modules:
       packages:
         # apps
         - syncthing
-        - tailscale
         - nautilus
 
   - type: fonts
@@ -70,20 +69,28 @@ modules:
           - com.bambulab.BambuStudio
           - org.freecad.FreeCAD
           - io.gitlab.librewolf-community
+      - repo:
+          name: sable-nightly
+          title: Sable Nightly
+          url: https://sableclient.github.io/Sable/sable-nightly.flatpakrepo
+        install:
+          - moe.sable.client.Nightly
 
   - type: systemd
     system:
       enabled:
         - keyd.service
-        - sddm.service
+        - ly@tty2.service
     user:
       enabled:
         - syncthing.service
 
   - type: script
     snippets:
-      # timezone
-      - systemd-firstboot --force --timezone=America/Sao_Paulo
+      # zapfast: rpm from the latest github release
+      - >-
+        dnf install -y $(curl -fsSL https://api.github.com/repos/crmne/zapfast/releases/latest
+        | grep -oP '"browser_download_url":\s*"\K[^"]+\.x86_64\.rpm')
 
       # firewall: syncthing
       - firewall-offline-cmd --add-port=22000/tcp

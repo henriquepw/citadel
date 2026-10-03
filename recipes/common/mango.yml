@@ -1,36 +1,36 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 modules:
   - type: dnf
+    repos:
+      files:
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
     install:
       packages:
         - wlroots
         - scenefx
         - xdg-desktop-portal-wlr
+        - mango
 
+  # garante que o display manager enxergue a sessão, caso o pacote não instale o .desktop
   - type: script
     snippets:
-      # mangowm só tem rpm no Terra pra rawhide, então buildamos na hora
       - |
         set -euo pipefail
 
-        # git/gcc/pkgconf ficam na imagem (vêm do develop.yml), o resto é
-        # só pro build e sai no fim
-        build_only=(
-          meson ninja-build
-          wlroots-devel scenefx-devel
-          wayland-protocols-devel libinput-devel libxkbcommon-devel
-          pcre2-devel pixman-devel libdrm-devel
-          libxcb-devel xcb-util-wm-devel
-          cjson-devel pango-devel cairo-devel
-        )
-        dnf5 -y install git gcc pkgconf-pkg-config "${build_only[@]}"
+        # Start the desktop shell with Mango; without it the compositor shows
+        # only its empty background.
+        if [ -f /etc/mango/config.conf ] && ! grep -qxF 'exec-once=noctalia --daemon' /etc/mango/config.conf; then
+          printf '\nexec-once=noctalia --daemon\n' >> /etc/mango/config.conf
+        fi
 
-        src="$(mktemp -d)"
-
-        git clone --depth 1 https://github.com/mangowm/mango.git "$src/mango"
-        meson setup "$src/mango/build" "$src/mango" --prefix=/usr --buildtype=release
-        ninja -C "$src/mango/build" install
-
-        ldconfig
-        rm -rf "$src"
-        dnf5 -y remove "${build_only[@]}"
+        if [ ! -f /usr/share/wayland-sessions/mango.desktop ]; then
+          mkdir -p /usr/share/wayland-sessions
+          cat > /usr/share/wayland-sessions/mango.desktop <<'DESKTOP'
+        [Desktop Entry]
+        Name=Mango
+        Comment=A wayland compositor based on wlroots and scenefx
+        Exec=/usr/bin/mango
+        Type=Application
+        DesktopNames=mango;wlroots
+        DESKTOP
+        fi

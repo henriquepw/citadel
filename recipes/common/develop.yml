@@ -44,12 +44,8 @@ modules:
         - vis
         - tree-sitter
 
-        # langs
+        # langs (see /usr/share/citadel/Brewfile)
         - nodejs
-        - golang
-        - rust
-        - cargo
-        - zig
         - gcc
         - python3
         - lua
@@ -57,8 +53,6 @@ modules:
         # tooling
         - shellcheck
         - shfmt
-        - rust-analyzer
-        - clang-tools-extra
         - android-tools
 
 
@@ -67,17 +61,20 @@ modules:
       - install:
           - com.google.AndroidStudio
 
-  - type: script
-    snippets:
-      - npm install -g bun @anthropic-ai/claude-code @openai/codex
-
-  - type: lsp
-    source: local
+  - type: brew
+    nofile-limits: true
+    brew-analytics: false
+    auto-update: true
+    auto-upgrade: true
+    upgrade-wait-after-boot: 10m
 
   - type: systemd
     system:
       enabled:
         - sshd.service
+    user:
+      enabled:
+        - citadel-brew-bundle.service
 
   - type: script
     snippets:

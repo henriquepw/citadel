@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+# Wrapper de sessão do Ly: carrega o ambiente de login e executa a sessão
+# recebida como argumento (ex.: /usr/bin/mango).
+[ -f /etc/profile ] && . /etc/profile
+[ -f "$HOME/.profile" ] && . "$HOME/.profile"
+
+export XDG_SESSION_TYPE="${XDG_SESSION_TYPE:-wayland}"
+export XCURSOR_THEME="${XCURSOR_THEME:-Bibata-Modern-Ice}"
+export XCURSOR_SIZE="${XCURSOR_SIZE:-24}"
+
+exec "$@"
