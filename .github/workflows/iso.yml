@@ -1,0 +1,45 @@
+name: iso
+on:
+  workflow_dispatch: # build the ISO on demand
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+jobs:
+  iso:
+    name: Build ISO
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Maximize build space
+        uses: ublue-os/remove-unwanted-software@v9
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build ISO
+        id: build
+        uses: jasonn3/build-container-installer@v1.4.0
+        with:
+          image_repo: ghcr.io/henriquepw
+          image_name: citadel
+          image_tag: latest
+          version: 44
+          variant: Server
+          iso_name: build/citadel.iso
+          secure_boot_key_url: https://github.com/ublue-os/akmods/raw/main/certs/public_key.der
+          enrollment_password: universalblue
+          web_ui: false
+          additional_templates: /github/workspace/files/iso/anaconda-storage.tmpl
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: citadel-iso
+          path: |
+            ${{ steps.build.outputs.iso_path }}/${{ steps.build.outputs.iso_name }}
+            ${{ steps.build.outputs.iso_path }}/${{ steps.build.outputs.iso_name }}-CHECKSUM
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0 # ISO is already compressed

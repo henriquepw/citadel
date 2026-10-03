@@ -13,16 +13,14 @@ modules:
     src: /kernel-rpms/
     dest: /tmp/kernel-rpms
 
+  - type: copy
+    from: ghcr.io/ublue-os/akmods:ogc-44
+    src: /rpms/
+    dest: /tmp/akmods-rpms
+
   - type: script
     scripts:
       - install-kernel.sh
-
-  - type: akmods
-    base: ogc
-    install:
-      - v4l2loopback
-      - xone
-      - xpadneo
 
   - type: script
     scripts:

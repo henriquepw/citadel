@@ -24,6 +24,16 @@ dnf5 -y install \
 
 dnf5 versionlock add kernel kernel-devel kernel-devel-matched kernel-core kernel-modules
 
+# kmods via dnf5; the akmods module's rpm-ostree install breaks the transaction
+dnf5 -y install /tmp/akmods-rpms/ublue-os/ublue-os-akmods-addons-*.rpm
+if ! rpm -q rpmfusion-free-release &>/dev/null; then
+  dnf5 -y install "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+fi
+dnf5 -y install --enablerepo='copr:copr.fedorainfracloud.org:ublue-os:akmods' \
+  /tmp/akmods-rpms/kmods/kmod-v4l2loopback-*.rpm \
+  /tmp/akmods-rpms/kmods/kmod-xone-*.rpm \
+  /tmp/akmods-rpms/kmods/kmod-xpadneo-*.rpm
+
 pushd /usr/lib/kernel/install.d
 mv -f 05-rpmostree.install.bak 05-rpmostree.install
 mv -f 50-dracut.install.bak 50-dracut.install
@@ -31,4 +41,4 @@ popd
 
 # initramfs is built after the kmods (build-initramfs.sh)
 
-rm -rf /tmp/kernel-rpms
+rm -rf /tmp/kernel-rpms /tmp/akmods-rpms
