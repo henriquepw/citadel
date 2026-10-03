@@ -41,3 +41,4 @@ jobs:
 
           # reogranize the layers
           build_chunked_oci: true
+          rechunk_clear_plan: true
