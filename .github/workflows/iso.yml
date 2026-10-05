@@ -20,7 +20,7 @@ jobs:
 
       - name: Build ISO
         id: build
-        uses: jasonn3/build-container-installer@v1.4.0
+        uses: jasonn3/build-container-installer@v1.5.0
         with:
           image_repo: ghcr.io/henriquepw
           image_name: citadel
