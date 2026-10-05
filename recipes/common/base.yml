@@ -65,12 +65,7 @@ modules:
           - com.bambulab.BambuStudio
           - org.freecad.FreeCAD
           - io.gitlab.librewolf-community
-      - repo:
-          name: sable-nightly
-          title: Sable Nightly
-          url: https://sableclient.github.io/Sable/sable-nightly.flatpakrepo
-        install:
-          - moe.sable.client.Nightly
+          - moe.sable.client
 
   - type: systemd
     system:
