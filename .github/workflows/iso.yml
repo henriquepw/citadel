@@ -34,7 +34,7 @@ jobs:
           additional_templates: /github/workspace/files/iso/anaconda-storage.tmpl
 
       - name: Upload ISO
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: citadel-iso
           path: |
