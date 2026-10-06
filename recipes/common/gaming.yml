@@ -29,6 +29,7 @@ modules:
     configurations:
       - install:
           - com.vysp3r.ProtonPlus
+          - com.heroicgameslauncher.hgl
 
   - type: systemd
     user:
