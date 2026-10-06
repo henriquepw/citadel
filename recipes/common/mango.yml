@@ -24,6 +24,9 @@ modules:
           printf '\n%s\n' "$noctalia_exec" >> /etc/mango/config.conf
         fi
 
+        # default cursor theme for X11/XWayland apps; written here because libXcursor
+        printf '[Icon Theme]\nInherits=Bibata-Modern-Ice\n' > /usr/share/icons/default/index.theme
+
         if [ ! -f /usr/share/wayland-sessions/mango.desktop ]; then
           mkdir -p /usr/share/wayland-sessions
           cat > /usr/share/wayland-sessions/mango.desktop <<'DESKTOP'

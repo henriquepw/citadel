@@ -23,6 +23,7 @@ modules:
         # themes
         - papirus-icon-theme
         - bibata-cursor-theme
+        - terminus-fonts-console
 
         # input
         - keyd
@@ -54,10 +55,11 @@ modules:
       nerd-fonts:
         - JetBrainsMono
 
-  # GTK font settings (used via xdg-desktop-portal)
+  # GTK settings (used via xdg-desktop-portal)
   - type: gschema-overrides
     include:
       - zz1-citadel-fonts.gschema.override
+      - zz1-citadel-cursor.gschema.override
 
   - type: default-flatpaks
     configurations:
