@@ -69,6 +69,7 @@ modules:
           - com.bambulab.BambuStudio
           - org.freecad.FreeCAD
           - io.gitlab.librewolf-community
+          - org.keepassxc.KeePassXC
           - moe.sable.client
 
   - type: systemd
