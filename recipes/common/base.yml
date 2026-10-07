@@ -23,6 +23,7 @@ modules:
         # themes
         - papirus-icon-theme
         - bibata-cursor-theme
+        - adw-gtk3-theme
         - terminus-fonts-console
 
         # input
@@ -60,6 +61,7 @@ modules:
     include:
       - zz1-citadel-fonts.gschema.override
       - zz1-citadel-cursor.gschema.override
+      - zz1-citadel-theme.gschema.override
 
   - type: default-flatpaks
     configurations:
