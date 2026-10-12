@@ -16,6 +16,7 @@ modules:
         - ly
         - xorg-x11-server-Xwayland
         - xdg-desktop-portal-gtk
+        - gnome-keyring-pam
 
         # desktop
         - noctalia
@@ -50,7 +51,6 @@ modules:
     install:
       install-weak-deps: false
       packages:
-        - syncthing
         - nautilus
         - glycin-thumbnailer
         - sushi
@@ -83,9 +83,6 @@ modules:
       enabled:
         - keyd.service
         - ly@tty2.service
-    user:
-      enabled:
-        - syncthing.service
 
   - type: script
     snippets:
@@ -93,9 +90,3 @@ modules:
       - >-
         dnf install -y $(curl -fsSL https://api.github.com/repos/crmne/zapfast/releases/latest
         | grep -oP '"browser_download_url":\s*"\K[^"]+\.x86_64\.rpm')
-
-      # firewall: syncthing
-      - firewall-offline-cmd --add-port=22000/tcp
-      - firewall-offline-cmd --add-port=22000/udp
-      - firewall-offline-cmd --add-port=21027/udp
-      - firewall-offline-cmd --add-port=8384/tcp
