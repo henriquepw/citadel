@@ -9,16 +9,12 @@ After setup, it is recommended you update this README to describe your custom im
 > [!WARNING]  
 > [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
 
-There are two images, identical except for the compositor: `citadel-mango`
-(mangowm, built from source at image build time) and `citadel-umbriel`
-(umbriel, from Terra's `umbriel-nightly`). Replace `citadel-mango` below with `citadel-umbriel`
-for the other one.
 
 To rebase an existing atomic Fedora installation to the latest build:
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/henriquepw/citadel-mango:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/henriquepw/citadel:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -26,7 +22,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Then rebase to the signed image, like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/henriquepw/citadel-mango:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/henriquepw/citadel:latest
   ```
 - Reboot again to complete the installation
   ```
@@ -44,5 +40,5 @@ If build on Fedora Atomic, you can generate an offline ISO with the instructions
 These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/henriquepw/citadel-mango
+cosign verify --key cosign.pub ghcr.io/henriquepw/citadel
 ```
