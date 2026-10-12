@@ -19,6 +19,8 @@ modules:
 
         # desktop
         - noctalia
+        - nextcloud-client
+        - nextcloud-client-nautilus
 
         # themes
         - papirus-icon-theme
@@ -50,6 +52,9 @@ modules:
       packages:
         - syncthing
         - nautilus
+        - glycin-thumbnailer
+        - sushi
+        - loupe
 
   - type: fonts
     fonts:
@@ -71,6 +76,7 @@ modules:
           - io.gitlab.librewolf-community
           - org.keepassxc.KeePassXC
           - moe.sable.client
+          - org.gnome.Boxes
 
   - type: systemd
     system:
