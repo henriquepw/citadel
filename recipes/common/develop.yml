@@ -60,6 +60,10 @@ modules:
     configurations:
       - install:
           - com.google.AndroidStudio
+          - com.usebruno.Bruno
+          - com.mongodb.Compass
+          - io.dbeaver.DBeaverCommunity
+
 
   - type: brew
     nofile-limits: true
