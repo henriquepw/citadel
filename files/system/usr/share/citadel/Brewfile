@@ -17,6 +17,9 @@ brew "zig"
 # c/c++ (clangd, clang-format)
 brew "llvm"
 
+# java (react native / android)
+brew "openjdk@17"
+
 # lua / toml
 brew "stylua"
 brew "taplo"
@@ -28,6 +31,10 @@ brew "vtsls"
 brew "tailwindcss-language-server"
 brew "biome"
 brew "mermaid-cli"
+
+# containers (cli only, talks to podman.socket via DOCKER_HOST)
+brew "docker"
+brew "docker-compose"
 
 # ai / js
 cask "claude-code"

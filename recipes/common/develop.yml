@@ -79,6 +79,7 @@ modules:
     user:
       enabled:
         - citadel-brew-bundle.service
+        - podman.socket
 
   - type: script
     snippets:
