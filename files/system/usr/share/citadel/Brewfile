@@ -16,6 +16,8 @@ brew "zig"
 
 # c/c++ (clangd, clang-format)
 brew "llvm"
+brew "gcc"
+brew "dlib"
 
 # java (react native / android)
 brew "openjdk@17"
