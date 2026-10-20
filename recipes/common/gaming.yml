@@ -27,7 +27,8 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - install:
+      - scope: user
+        install:
           - com.vysp3r.ProtonPlus
           - com.heroicgameslauncher.hgl
 

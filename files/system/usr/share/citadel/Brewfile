@@ -23,10 +23,12 @@ brew "dlib"
 brew "openjdk@17"
 
 # lua / toml
+brew "lua-language-server"
 brew "stylua"
 brew "taplo"
 
 # lsp / formatters
+brew "efm-langserver"
 brew "goimports"
 brew "bash-language-server"
 brew "vtsls"

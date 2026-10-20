@@ -58,7 +58,8 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - install:
+      - scope: user
+        install:
           - com.google.AndroidStudio
           - com.usebruno.Bruno
           - com.mongodb.Compass
