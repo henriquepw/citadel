@@ -8,6 +8,7 @@ modules:
       copr:
         - alternateved/keyd
         - fovty/hushmic
+        - oguzkarayemis/limusic
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     install:
@@ -39,6 +40,7 @@ modules:
 
         # audio
         - hushmic
+        - limusic
 
         # browsers
         - brave-origin
