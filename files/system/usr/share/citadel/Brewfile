@@ -36,11 +36,14 @@ brew "tailwindcss-language-server"
 brew "biome"
 brew "mermaid-cli"
 
-# containers (cli only, talks to podman.socket via DOCKER_HOST)
+# containers
 brew "docker"
 brew "docker-compose"
 
-# ai / js
+# ai
 cask "claude-code"
 cask "codex"
+
+# node
 brew "bun"
+brew "flyctl"
