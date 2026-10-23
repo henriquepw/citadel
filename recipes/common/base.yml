@@ -5,12 +5,14 @@ modules:
       files:
         - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
         - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+        - https://repo.librewolf.net/librewolf.repo
       copr:
         - alternateved/keyd
         - fovty/hushmic
         - oguzkarayemis/limusic
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+        - https://repo.librewolf.net/pubkey.gpg
     install:
       packages:
         # display
@@ -44,6 +46,7 @@ modules:
 
         # browsers
         - brave-origin
+        - librewolf
 
         # network
         - firewalld
@@ -76,7 +79,6 @@ modules:
         install:
           - com.bambulab.BambuStudio
           - org.freecad.FreeCAD
-          - io.gitlab.librewolf-community
           - org.keepassxc.KeePassXC
           - moe.sable.client
           - org.gnome.Boxes
