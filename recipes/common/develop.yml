@@ -4,7 +4,6 @@ modules:
     repos:
       copr:
         - arcticlore/candy
-        - scottames/ghostty
         - atim/starship
     install:
       packages:
