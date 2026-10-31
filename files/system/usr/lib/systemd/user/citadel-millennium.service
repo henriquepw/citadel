@@ -1,0 +1,13 @@
+[Unit]
+Description=Liga o Millennium (steambrew) ao Steam do usuário
+ConditionPathExists=/usr/lib/millennium
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'mkdir -p %h/.steam/steam/ubuntu12_32 %h/.steam/steam/ubuntu12_64 \
+  && ln -sf /usr/lib/millennium/libmillennium_bootstrap_x86.so %h/.steam/steam/ubuntu12_32/libXtst.so.6 \
+  && ln -sf /usr/lib/millennium/libmillennium_bootstrap_hhx64.so %h/.steam/steam/ubuntu12_64/libXtst.so.6 \
+  && ln -sf /usr/lib/millennium/libmillennium_hhx64.so %h/.steam/steam/ubuntu12_64/libmillennium_hhx64.so'
+
+[Install]
+WantedBy=default.target
