@@ -9,6 +9,7 @@ modules:
       packages:
         - steam
         - steam-devices
+        - antimicrox
         - gamescope
         - mangohud
         - gamemode
