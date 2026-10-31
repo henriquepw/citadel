@@ -5,12 +5,10 @@ modules:
       nonfree: rpmfusion
     install:
       allow-erasing: true
-      # no weak deps: skips lutris wine + mingw (~2.3 GB); steam uses proton
       install-weak-deps: false
       packages:
         - steam
         - steam-devices
-        - lutris
         - gamescope
         - mangohud
         - gamemode
@@ -31,6 +29,7 @@ modules:
         install:
           - com.vysp3r.ProtonPlus
           - com.heroicgameslauncher.hgl
+          - io.github.benjamimgois.goverlay
 
   - type: systemd
     user:
