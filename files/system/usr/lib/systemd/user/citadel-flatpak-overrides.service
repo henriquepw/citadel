@@ -1,0 +1,13 @@
+[Unit]
+Description=Aplica os overrides de flatpak do usuário
+ConditionPathExists=/usr/bin/flatpak
+
+[Service]
+Type=oneshot
+# goverlay: sem :create a pasta não é exposta se não existir, e a config cai no sandbox onde o mangohud não vê
+ExecStart=/usr/bin/flatpak override --user --filesystem=xdg-config/MangoHud:create io.github.benjamimgois.goverlay
+# compass: o electron só usa o libsecret (pra salvar a senha) se achar que está no GNOME
+ExecStart=/usr/bin/flatpak override --user --env=XDG_CURRENT_DESKTOP=GNOME com.mongodb.Compass
+
+[Install]
+WantedBy=default.target

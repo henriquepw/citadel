@@ -89,6 +89,9 @@ modules:
       enabled:
         - keyd.service
         - ly@tty2.service
+    user:
+      enabled:
+        - citadel-flatpak-overrides.service
 
   - type: script
     snippets:
