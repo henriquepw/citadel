@@ -10,6 +10,7 @@ modules:
         - scenefx
         - xdg-desktop-portal-wlr
         - mango
+        - wdisplays
 
   # ensure the display manager sees the session if the package lacks a .desktop
   - type: script
