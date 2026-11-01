@@ -46,9 +46,9 @@ modules:
       # decky loader: binário da última release do github, os plugins ficam em ~/homebrew
       - |
         set -euo pipefail
-        install -d /usr/lib/decky
-        curl -fsSL -o /usr/lib/decky/PluginLoader https://github.com/SteamDeckHomebrew/decky-loader/releases/latest/download/PluginLoader
-        chmod +x /usr/lib/decky/PluginLoader
+        install -d /usr/libexec/decky
+        curl -fsSL -o /usr/libexec/decky/PluginLoader https://github.com/SteamDeckHomebrew/decky-loader/releases/latest/download/PluginLoader
+        chmod +x /usr/libexec/decky/PluginLoader
 
       - firewall-offline-cmd --add-port=47984-47990/tcp
       - firewall-offline-cmd --add-port=48010/tcp

@@ -1,7 +1,7 @@
 [Unit]
 Description=Decky Loader (plugins do Steam) para o usuário %i
 After=network.target
-ConditionPathExists=/usr/lib/decky/PluginLoader
+ConditionPathExists=/usr/libexec/decky/PluginLoader
 
 [Service]
 Type=simple
@@ -11,8 +11,8 @@ KillMode=process
 TimeoutStopSec=15
 # o binário vem na imagem; plugins, configurações e logs ficam no homebrew do usuário
 ExecStartPre=/usr/bin/install -d -o %i -g %i /home/%i/homebrew
-ExecStart=/usr/lib/decky/PluginLoader
-WorkingDirectory=/home/%i/homebrew
+ExecStart=/usr/libexec/decky/PluginLoader
+WorkingDirectory=-/home/%i/homebrew
 Environment=UNPRIVILEGED_USER=%i
 Environment=UNPRIVILEGED_PATH=/home/%i/homebrew
 Environment=PRIVILEGED_PATH=/home/%i/homebrew

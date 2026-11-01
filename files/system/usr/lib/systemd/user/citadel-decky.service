@@ -1,6 +1,6 @@
 [Unit]
 Description=Libera o debug remoto do Steam que o Decky Loader usa para injetar os plugins
-ConditionPathExists=/usr/lib/decky/PluginLoader
+ConditionPathExists=/usr/libexec/decky/PluginLoader
 
 [Service]
 Type=oneshot
