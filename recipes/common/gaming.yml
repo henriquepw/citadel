@@ -33,24 +33,22 @@ modules:
           - io.github.benjamimgois.goverlay
 
   - type: systemd
+    system:
+      enabled:
+        - decky-loader@henrique.service
     user:
       enabled:
         - app-dev.lizardbyte.app.Sunshine.service
-        - citadel-millennium.service
+        - citadel-decky.service
 
   - type: script
     snippets:
-      # millennium (steambrew): tarball from the latest github release, files live in /usr/lib/millennium
+      # decky loader: binário da última release do github, os plugins ficam em ~/homebrew
       - |
         set -euo pipefail
-        tag=$(curl -fsSL https://api.github.com/repos/SteamClientHomebrew/Millennium/releases/latest | grep -oP '"tag_name":\s*"\K[^"]+')
-        base="https://github.com/SteamClientHomebrew/Millennium/releases/download/${tag}/millennium-${tag}-linux-x86_64"
-        tmp=$(mktemp -d)
-        curl -fsSL -o "${tmp}/millennium-${tag}-linux-x86_64.tar.gz" "${base}.tar.gz"
-        (cd "${tmp}" && curl -fsSL "${base}.sha256" | sha256sum -c --status)
-        tar xzf "${tmp}/millennium-${tag}-linux-x86_64.tar.gz" -C /
-        chmod +x /usr/lib/millennium/libmillennium_pvs64 /usr/lib/millennium/libmillennium_luavm_x86
-        rm -rf "${tmp}"
+        install -d /usr/lib/decky
+        curl -fsSL -o /usr/lib/decky/PluginLoader https://github.com/SteamDeckHomebrew/decky-loader/releases/latest/download/PluginLoader
+        chmod +x /usr/lib/decky/PluginLoader
 
       - firewall-offline-cmd --add-port=47984-47990/tcp
       - firewall-offline-cmd --add-port=48010/tcp

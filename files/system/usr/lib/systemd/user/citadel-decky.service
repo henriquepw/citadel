@@ -1,0 +1,10 @@
+[Unit]
+Description=Libera o debug remoto do Steam que o Decky Loader usa para injetar os plugins
+ConditionPathExists=/usr/lib/decky/PluginLoader
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'mkdir -p %h/.steam/steam && touch %h/.steam/steam/.cef-enable-remote-debugging'
+
+[Install]
+WantedBy=default.target
