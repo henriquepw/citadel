@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+# Pick the terminus console font whose grid best covers the ly dur animation (240x67)
+# at the current framebuffer resolution; the overflow is cropped by dur_offset_alignment.
+# 1080p -> ter-v16 (240x67), 1440p -> ter-v22 (232x65), 4K -> ter-v32 (240x67)
+tty="$1"
+anim_cols=240
+anim_rows=67
+
+IFS=, read -r xres yres < /sys/class/graphics/fb0/virtual_size || exit 0
+
+# ter-v<height> and its cell width, smallest first
+font=ter-v32b
+for spec in 12:6 14:8 16:8 18:10 20:10 22:11 24:12 28:14 32:16; do
+    h="${spec%%:*}"
+    w="${spec##*:}"
+    if (( xres / w <= anim_cols && yres / h <= anim_rows )); then
+        font="ter-v${h}b"
+        [ "$h" = 12 ] && font=ter-v12n
+        break
+    fi
+done
+
+exec /usr/bin/setfont -C "/dev/$tty" "$font"
