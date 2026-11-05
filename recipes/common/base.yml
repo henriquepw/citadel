@@ -83,6 +83,7 @@ modules:
           - moe.sable.client
           - org.gnome.Boxes
           - org.onlyoffice.desktopeditors
+          - org.localsend.localsend_app
 
   - type: systemd
     system:
@@ -99,3 +100,7 @@ modules:
       - >-
         dnf install -y $(curl -fsSL https://api.github.com/repos/crmne/zapfast/releases/latest
         | grep -oP '"browser_download_url":\s*"\K[^"]+\.x86_64\.rpm')
+
+      # localsend
+      - firewall-offline-cmd --add-port=53317/tcp
+      - firewall-offline-cmd --add-port=53317/udp
