@@ -51,13 +51,18 @@ modules:
         # network
         - firewalld
 
+        # appimage (libfuse.so.2)
+        - fuse-libs
+
   # apps
   - type: dnf
     install:
       install-weak-deps: false
       packages:
         - nautilus
+        - gvfs-smb
         - glycin-thumbnailer
+        - gst-thumbnailers
         - sushi
         - loupe
 
@@ -84,6 +89,7 @@ modules:
           - org.gnome.Boxes
           - org.onlyoffice.desktopeditors
           - org.localsend.localsend_app
+          - it.mijorus.gearlever
 
   - type: systemd
     system:
