@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+# AMD GPU (RX 9070 XT): mesa freeworld do rpmfusion (VA-API e Vulkan Video com H.264/HEVC)
+modules:
+  - type: dnf
+    repos:
+      nonfree: rpmfusion
+    install:
+      allow-erasing: true
+      install-weak-deps: false
+      packages:
+        - mesa-dri-drivers
+        - mesa-va-drivers-freeworld
+        - mesa-va-drivers-freeworld.i686
+        - mesa-vulkan-drivers-freeworld
+        - mesa-vulkan-drivers-freeworld.i686
+
+  - type: dnf
+    repos:
+      copr:
+        - ilyaz/LACT
+    install:
+      packages:
+        - lact
+
+  - type: systemd
+    system:
+      enabled:
+        - lactd.service
+
+  - type: kargs
+    kargs:
+      - amdgpu.dcfeaturemask=0x402      # enable HDMI 2.1 FRL until Linux 7.4
+      - amdgpu.ppfeaturemask=0xffffffff # unlock overclock/undervolt in LACT

@@ -65,6 +65,7 @@ modules:
         - gst-thumbnailers
         - sushi
         - loupe
+        - gnome-disk-utility
 
   - type: fonts
     fonts:
@@ -90,6 +91,7 @@ modules:
           - org.onlyoffice.desktopeditors
           - org.localsend.localsend_app
           - it.mijorus.gearlever
+          - com.github.tchx84.Flatseal
 
   - type: systemd
     system:

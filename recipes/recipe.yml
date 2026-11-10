@@ -5,7 +5,7 @@ name: citadel
 description: This is my personal OS image.
 
 base-image: ghcr.io/ublue-os/base-main
-image-version: latest
+image-version: 45 # manter igual ao akmods:ogc-XX em common/kernel.yml
 
 modules:
   - type: os-release
@@ -21,6 +21,7 @@ modules:
 
   - from-file: common/cleanup.yml
   - from-file: common/base.yml
+  - from-file: common/driver.yml
   - from-file: common/develop.yml
   - from-file: common/gaming.yml
   - from-file: common/mango.yml

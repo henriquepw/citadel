@@ -4,7 +4,6 @@ modules:
     repos:
       nonfree: rpmfusion
     install:
-      allow-erasing: true
       install-weak-deps: false
       packages:
         - steam
@@ -13,8 +12,6 @@ modules:
         - gamescope
         - mangohud
         - gamemode
-        - mesa-dri-drivers
-        - mesa-vulkan-drivers
 
   - type: dnf
     repos:

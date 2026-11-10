@@ -7,16 +7,14 @@ modules:
       - loglevel=3
       - rd.udev.log_level=3
       - udev.log_priority=3
-      # enable HDMI 2.1 FRL (0x400) on top of the default 0x2; off upstream until Linux 7.4
-      - amdgpu.dcfeaturemask=0x402
 
   - type: copy
-    from: ghcr.io/ublue-os/akmods:ogc-44
+    from: ghcr.io/ublue-os/akmods:ogc-45
     src: /kernel-rpms/
     dest: /tmp/kernel-rpms
 
   - type: copy
-    from: ghcr.io/ublue-os/akmods:ogc-44
+    from: ghcr.io/ublue-os/akmods:ogc-45
     src: /rpms/
     dest: /tmp/akmods-rpms
 
