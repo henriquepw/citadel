@@ -51,7 +51,6 @@ modules:
 
         # tooling
         - shellcheck
-        - shfmt
         - android-tools
 
 
