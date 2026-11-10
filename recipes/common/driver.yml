@@ -9,6 +9,7 @@ modules:
       install-weak-deps: false
       packages:
         - mesa-dri-drivers
+        - mesa-dri-drivers.i686
         - mesa-va-drivers-freeworld
         - mesa-va-drivers-freeworld.i686
         - mesa-vulkan-drivers-freeworld
