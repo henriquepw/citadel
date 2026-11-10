@@ -1,5 +1,9 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 modules:
+  - type: script
+    snippets:
+      - dnf5 -y install --enable-repo=fedora-multimedia libfdk-aac.i686
+
   - type: dnf
     repos:
       nonfree: rpmfusion
