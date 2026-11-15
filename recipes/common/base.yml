@@ -105,9 +105,11 @@ modules:
   - type: script
     snippets:
       # zapfast: rpm from the latest github release
+      # resolves the version via the releases/latest redirect, avoiding the rate-limited API
       - >-
-        dnf install -y $(curl -fsSL https://api.github.com/repos/crmne/zapfast/releases/latest
-        | grep -oP '"browser_download_url":\s*"\K[^"]+\.x86_64\.rpm')
+        ver=$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/crmne/zapfast/releases/latest
+        | sed 's|.*/tag/v||') &&
+        dnf install -y "https://github.com/crmne/zapfast/releases/download/v${ver}/zapfast-${ver}-1.x86_64.rpm"
 
       # localsend
       - firewall-offline-cmd --add-port=53317/tcp
