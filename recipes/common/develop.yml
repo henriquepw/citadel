@@ -84,8 +84,14 @@ modules:
     snippets:
       - firewall-offline-cmd --add-service=ssh
 
+      # pyatv: fora do fedora e do brew, venv isolado com os CLIs em /usr/bin
+      - |
+        set -euo pipefail
+        python3 -m venv /usr/libexec/pyatv
+        /usr/libexec/pyatv/bin/pip install --no-cache-dir pyatv
+        for bin in atvremote atvscript atvlog atvproxy; do
+          ln -sf /usr/libexec/pyatv/bin/$bin /usr/bin/$bin
+        done
+
       # zsh as the default shell for new users
       - sed -i 's|^SHELL=.*|SHELL=/usr/bin/zsh|' /etc/default/useradd
-
-
-

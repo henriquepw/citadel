@@ -27,7 +27,7 @@ modules:
       - scope: user
         install:
           - com.vysp3r.ProtonPlus
-          - com.heroicgameslauncher.hgl
+          - net.lutris.Lutris
           - io.github.benjamimgois.goverlay
 
   - type: systemd

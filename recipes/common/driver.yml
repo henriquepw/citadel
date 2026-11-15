@@ -10,9 +10,9 @@ modules:
       packages:
         - mesa-dri-drivers
         - mesa-dri-drivers.i686
-        - mesa-va-drivers-freeworld
+        - mesa-va-drivers-freeworld.x86_64
         - mesa-va-drivers-freeworld.i686
-        - mesa-vulkan-drivers-freeworld
+        - mesa-vulkan-drivers-freeworld.x86_64
         - mesa-vulkan-drivers-freeworld.i686
 
   - type: dnf
