@@ -88,9 +88,18 @@ modules:
       - |
         set -euo pipefail
         python3 -m venv /usr/libexec/pyatv
-        /usr/libexec/pyatv/bin/pip install --no-cache-dir pyatv
+        # srptools 2.0 tornou `private` keyword-only e quebra o pareamento do pyatv
+        /usr/libexec/pyatv/bin/pip install --no-cache-dir pyatv 'srptools<2'
+        # python >= 3.14: get_event_loop() não cria mais o loop, e os CLIs do pyatv dependem disso
         for bin in atvremote atvscript atvlog atvproxy; do
-          ln -sf /usr/libexec/pyatv/bin/$bin /usr/bin/$bin
+          cat > /usr/bin/$bin <<EOF
+        #!/usr/libexec/pyatv/bin/python3
+        import asyncio, sys
+        asyncio.set_event_loop(asyncio.new_event_loop())
+        from pyatv.scripts.$bin import main
+        sys.exit(main())
+        EOF
+          chmod 755 /usr/bin/$bin
         done
 
       # zsh as the default shell for new users
